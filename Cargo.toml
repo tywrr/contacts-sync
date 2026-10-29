@@ -1,0 +1,28 @@
+[package]
+name = "contacts-sync"
+version = "0.1.0"
+edition = "2024"
+description = "Make vCard 4 / JMAP contact data (lists, relationships, social profiles) visible in Apple Contacts over CardDAV"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/tywrr/contacts-sync"
+readme = "README.md"
+keywords = ["carddav", "vcard", "contacts", "jmap", "apple"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+anyhow = "1.0.104"
+base64 = "0.23.1"
+clap = { version = "4.6.7", features = ["derive", "env"] }
+quick-xml = "0.42.0"
+regex = "1.13.1"
+ureq = "3.5.0"
+url = "2.5.8"
+uuid = { version = "1.29.0", features = ["v5"] }
+
+# Small, fast release binary: one codegen unit + LTO lets the optimiser see the whole
+# program; debug symbols stripped; panics abort instead of unwinding (no unwind tables).
+[profile.release]
+codegen-units = 1
+lto = true
+strip = true
+panic = "abort"
